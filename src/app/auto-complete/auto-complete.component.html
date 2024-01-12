@@ -1,0 +1,38 @@
+<form class="example-form m-2">
+  <mat-form-field class="example-full-width">
+    <mat-label>City</mat-label>
+    <input
+      type="text"
+      placeholder="Pick one"
+      aria-label="City"
+      matInput
+      [formControl]="myControl"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let option of filteredOptions | async"
+        [value]="option.city"
+      >
+        {{ option.city }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <button
+    [disabled]="!myControl.value"
+    type="button"
+    class="btn btn-primary m-3 p-2"
+    (click)="getWeather()"
+  >
+    Weather
+  </button>
+</form>
+
+<!-- Display API Data -->
+<div class="row m-5">
+  <div class="col-12">
+    <h1>{{ name }}</h1>
+    <h2>{{ temp }}<span *ngIf="temp"> Deg.Cel.</span></h2>
+  </div>
+</div>
