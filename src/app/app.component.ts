@@ -1,22 +1,22 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { LocationService } from "./services/location.service";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { LocationService } from './services/location.service';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"],
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, OnDestroy {
   test_arr: any = [
-    { name: "anmol", class: "es6", marks: 10 },
-    { name: "jay", class: "es5", marks: 50 },
-    { name: "veeru", class: "es6", marks: 15 },
+    { name: 'anmol', class: 'es6', marks: 10 },
+    { name: 'jay', class: 'es5', marks: 50 },
+    { name: 'veeru', class: 'es6', marks: 15 },
   ];
 
   result: any = [];
   count: number = 10;
 
-  output: string = "";
+  output: string = '';
   n: number = 5;
 
   constructor(private locationS: LocationService) {}
@@ -29,12 +29,12 @@ export class AppComponent implements OnInit, OnDestroy {
   pattern() {
     for (let i = 0; i < this.n; i++) {
       for (let j = 0; j < this.n - i - 1; j++) {
-        this.output += " ";
+        this.output += ' ';
       }
       for (let k = 0; k < i + 1; k++) {
-        this.output += "* ";
+        this.output += '* ';
       }
-      this.output += "\n";
+      this.output += '\n';
     }
     console.log(this.output);
   }

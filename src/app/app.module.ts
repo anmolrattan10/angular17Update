@@ -15,9 +15,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { AutoCompleteComponent } from './auto-complete/auto-complete.component';
 import { NavComponent } from './nav/nav.component';
 import { WeatherComponent } from './weather/weather.component';
+import { ToDoComponent } from './to-do/to-do.component';
 
 @NgModule({
-  declarations: [AppComponent, AutoCompleteComponent, NavComponent, WeatherComponent],
+  declarations: [AppComponent, AutoCompleteComponent, NavComponent, WeatherComponent, ToDoComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
