@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LocationService } from './services/location.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
   output: string = '';
   n: number = 5;
 
-  constructor(private locationS: LocationService) {}
+  constructor() {}
 
   ngOnInit(): void {
     // this.pattern();

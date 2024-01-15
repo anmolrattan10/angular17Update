@@ -1,8 +1,9 @@
 import { FormControl } from '@angular/forms';
-import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, startWith, map } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { faTemperature0 } from '@fortawesome/free-solid-svg-icons';
 
-import { LocationService } from '../services/location.service';
+import { LocationService } from '../../services/location.service';
 
 @Component({
   selector: 'app-auto-complete',
@@ -10,6 +11,9 @@ import { LocationService } from '../services/location.service';
   styleUrls: ['./auto-complete.component.css'],
 })
 export class AutoCompleteComponent implements OnInit, OnDestroy {
+  //Icons
+  faTemperature0 = faTemperature0;
+
   // Pre API Data
   options!: string[];
   cityName!: string | null;

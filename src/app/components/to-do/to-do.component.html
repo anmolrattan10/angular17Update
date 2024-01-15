@@ -1,0 +1,74 @@
+<body>
+  <div class="row text-center">
+    <div class="col-md-12">
+      <h1>ToDo</h1>
+    </div>
+  </div>
+
+  <div class="row mt-5 text-center">
+    <div class="col-md-12">
+      <form [formGroup]="todoForm">
+        <div class="mb-5 justify-content-center d-flex">
+          <input
+            class="me-3 form-control w-25 border-dark"
+            type="text"
+            placeholder="Enter ToDo"
+            formControlName="addTodo"
+          />
+          @if(isEditting) {
+          <button class="btn btn-sm btn-success" (click)="saveTodo()">
+            Save
+          </button>
+          } @else if(!isEditting) {
+          <button
+            class="btn btn-sm btn-success"
+            (click)="addTodo()"
+            [disabled]="!todoForm.value.addTodo"
+          >
+            Add
+          </button>
+          }
+        </div>
+
+        @for(todo of todoList | async; track todo; let index = $index) {
+        <div class="row text-center">
+          <div class="col-md-12">
+            <ul>
+              <div class="justify-content-center d-flex">
+                <li [ngClass]="{ done: todo.flag }">{{ todo.item }}</li>
+                <button
+                  class="ms-5 btn btn-sm btn-primary"
+                  (click)="markDone(index)"
+                  [disabled]="isEditting"
+                >
+                  @if(todo.flag) { Undone } @else { Done }
+                </button>
+                <button
+                  class="ms-2 btn btn-sm btn-warning"
+                  (click)="editTodo(todo.item, index)"
+                  [disabled]="isEditting || todo.flag"
+                >
+                  Edit
+                </button>
+                <button
+                  class="ms-2 btn btn-sm btn-danger"
+                  (click)="deleteTodo(todo.todoId)"
+                  [disabled]="isEditting"
+                >
+                  Delete
+                </button>
+              </div>
+            </ul>
+          </div>
+        </div>
+        } @empty {
+        <div class="row mt-5">
+          <div class="col-md-12">
+            <p>No ToDo</p>
+          </div>
+        </div>
+        }
+      </form>
+    </div>
+  </div>
+</body>
