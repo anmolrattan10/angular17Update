@@ -1,6 +1,9 @@
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPenFancy } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import {
@@ -18,6 +21,11 @@ import { getTodoById, getTodos } from './store/todo.selector';
   styleUrl: './to-do.component.css',
 })
 export class ToDoComponent implements OnInit, OnDestroy {
+  //Icons
+  faTrash = faTrash;
+  faPenFancy = faPenFancy;
+  faCheck = faCheck;
+
   //Todos
   todoList!: Observable<TODOS[]>;
   //Todo Form
@@ -140,6 +148,8 @@ export class ToDoComponent implements OnInit, OnDestroy {
    * @returns void
    */
   ngOnDestroy(): void {
-    this.editedTodoSubscription.unsubscribe();
+    if (this.editedTodoSubscription) {
+      this.editedTodoSubscription.unsubscribe();
+    }
   }
 }

@@ -33,29 +33,37 @@
         @for(todo of todoList | async; track todo; let index = $index) {
         <div class="row text-center">
           <div class="col-md-12">
-            <ul>
+            <ul style="list-style-type: none">
               <div class="justify-content-center d-flex">
-                <li [ngClass]="{ done: todo.flag }">{{ todo.item }}</li>
+                <li>
+                  <span class="me-2 fw-light li-item-index">
+                    {{ index + 1 }}.
+                  </span>
+                  <span [ngClass]="{ done: todo.flag }" class="text-capitalize">
+                    {{ todo.item }}
+                  </span>
+                </li>
                 <button
                   class="ms-5 btn btn-sm btn-primary"
                   (click)="markDone(index)"
                   [disabled]="isEditting"
                 >
-                  @if(todo.flag) { Undone } @else { Done }
+                  @if(todo.flag) { Undone } @else {
+                  <fa-icon [icon]="faCheck"></fa-icon> }
                 </button>
                 <button
                   class="ms-2 btn btn-sm btn-warning"
                   (click)="editTodo(todo.item, index)"
                   [disabled]="isEditting || todo.flag"
                 >
-                  Edit
+                  <fa-icon [icon]="faPenFancy"></fa-icon>
                 </button>
                 <button
                   class="ms-2 btn btn-sm btn-danger"
                   (click)="deleteTodo(todo.todoId)"
                   [disabled]="isEditting"
                 >
-                  Delete
+                  <fa-icon [icon]="faTrash"></fa-icon>
                 </button>
               </div>
             </ul>
