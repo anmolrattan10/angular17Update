@@ -9,6 +9,8 @@ export class LocationService {
   latitude!: number;
   longitude!: number;
 
+  API_KEY: string = '48dcd537c1fab1b82b12e3787b43edb3';
+
   constructor(private http: HttpClient) {}
 
   getPosition(): Promise<any> {
@@ -34,13 +36,13 @@ export class LocationService {
 
   getWeather(): Observable<any> {
     return this.http.get(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${this.latitude}&lon=${this.longitude}&APPID=48dcd537c1fab1b82b12e3787b43edb3&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${this.latitude}&lon=${this.longitude}&APPID=${this.API_KEY}`
     );
   }
 
   getWeatherByCityName(cityName: string | null): Observable<any> {
     return this.http.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=48dcd537c1fab1b82b12e3787b43edb3&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${this.API_KEY}&units=metric`
     );
   }
 

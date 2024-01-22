@@ -1,7 +1,8 @@
 import { FormControl } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { faTemperature0 } from '@fortawesome/free-solid-svg-icons';
+import { faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
+import { faCloudSunRain } from '@fortawesome/free-solid-svg-icons';
 
 import { LocationService } from '../../services/location.service';
 
@@ -12,7 +13,8 @@ import { LocationService } from '../../services/location.service';
 })
 export class AutoCompleteComponent implements OnInit, OnDestroy {
   //Icons
-  faTemperature0 = faTemperature0;
+  faTemperatureLow = faTemperatureLow;
+  faCloudSunRain = faCloudSunRain;
 
   // Pre API Data
   options!: string[];

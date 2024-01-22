@@ -1,7 +1,7 @@
 <body>
   <div class="row text-center">
     <div class="col-md-12">
-      <h1>ToDo</h1>
+      <h1 class="text-warning text-decoration-underline">ToDo</h1>
     </div>
   </div>
 
@@ -51,19 +51,21 @@
                   @if(todo.flag) { Undone } @else {
                   <fa-icon [icon]="faCheck"></fa-icon> }
                 </button>
+                @if(!todo.flag) {
                 <button
                   class="ms-2 btn btn-sm btn-warning"
                   (click)="editTodo(todo.item, index)"
-                  [disabled]="isEditting || todo.flag"
+                  [disabled]="isEditting"
                 >
-                  <fa-icon [icon]="faPenFancy"></fa-icon>
+                  <fa-icon [icon]="faPen"></fa-icon>
                 </button>
+                }
                 <button
                   class="ms-2 btn btn-sm btn-danger"
                   (click)="deleteTodo(todo.todoId)"
                   [disabled]="isEditting"
                 >
-                  <fa-icon [icon]="faTrash"></fa-icon>
+                  <fa-icon [icon]="faTrashCan"></fa-icon>
                 </button>
               </div>
             </ul>

@@ -1,8 +1,8 @@
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { faPenFancy } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
@@ -22,8 +22,8 @@ import { getTodoById, getTodos } from './store/todo.selector';
 })
 export class ToDoComponent implements OnInit, OnDestroy {
   //Icons
-  faTrash = faTrash;
-  faPenFancy = faPenFancy;
+  faTrashCan = faTrashCan;
+  faPen = faPen;
   faCheck = faCheck;
 
   //Todos

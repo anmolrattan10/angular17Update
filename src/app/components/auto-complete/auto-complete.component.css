@@ -1,3 +1,12 @@
+body {
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(66, 65, 65),
+    rgb(214, 214, 214)
+  );
+  overflow-x: hidden;
+}
+
 .example-form {
   min-width: 150px;
   max-width: 500px;
@@ -6,4 +15,10 @@
 
 .example-full-width {
   width: 100%;
+}
+
+.example-card {
+  max-width: 400px;
+  width: 20rem;
+  height: 10rem;
 }

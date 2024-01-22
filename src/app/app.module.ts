@@ -1,8 +1,10 @@
 import { StoreModule } from '@ngrx/store';
 import { TitleCasePipe } from '@angular/common';
 import { NgModule, isDevMode } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -36,6 +38,8 @@ import { AutoCompleteComponent } from './components/auto-complete/auto-complete.
     ReactiveFormsModule,
     FormsModule,
     MatAutocompleteModule,
+    MatCardModule,
+    MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
     StoreModule.forRoot({ todos: todosReducer }),
