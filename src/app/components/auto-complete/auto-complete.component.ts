@@ -3,6 +3,7 @@ import { Observable, startWith, map } from 'rxjs';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
 import { faCloudSunRain } from '@fortawesome/free-solid-svg-icons';
+import { faTemperatureHigh } from '@fortawesome/free-solid-svg-icons';
 
 import { LocationService } from '../../services/location.service';
 
@@ -15,6 +16,7 @@ export class AutoCompleteComponent implements OnInit, OnDestroy {
   //Icons
   faTemperatureLow = faTemperatureLow;
   faCloudSunRain = faCloudSunRain;
+  faTemperatureHigh = faTemperatureHigh;
 
   // Pre API Data
   options!: string[];
@@ -22,9 +24,10 @@ export class AutoCompleteComponent implements OnInit, OnDestroy {
   myControl = new FormControl('');
   filteredOptions!: Observable<any>;
 
-  // Post API Data
-  name!: string;
-  temp!: number;
+  // API Response Data
+  name!: string | null;
+  temp!: number | null;
+  errorMessage: string | null = null;
 
   // Clear Timeout ID
   timeoutID!: NodeJS.Timeout;
@@ -61,13 +64,19 @@ export class AutoCompleteComponent implements OnInit, OnDestroy {
   }
 
   getWeather(): void {
+    this.errorMessage = null;
+    this.name = null;
+    this.temp = null;
     this.cityName = this.myControl.value;
-    this.locationService
-      .getWeatherByCityName(this.cityName)
-      .subscribe((data) => {
+    this.locationService.getWeatherByCityName(this.cityName).subscribe(
+      (data) => {
         this.name = data.name;
         this.temp = data.main.temp;
-      });
+      },
+      (error: any) => {
+        this.errorMessage = error.error.message;
+      }
+    );
 
     this.myControl.reset();
   }

@@ -18,11 +18,21 @@ export class AppComponent implements OnInit, OnDestroy {
   output: string = '';
   n: number = 5;
 
+  arr: any = [
+    [1, 2, 3],
+    [4, 5, 6],
+  ];
+
   constructor() {}
 
   ngOnInit(): void {
     // this.pattern();
     // this.transformed(this.test_arr);
+    // this.check();
+  }
+
+  check() {
+    console.log(this.arr.flat());
   }
 
   pattern() {

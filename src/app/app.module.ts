@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -41,6 +42,7 @@ import { AutoCompleteComponent } from './components/auto-complete/auto-complete.
     MatCardModule,
     MatButtonModule,
     MatInputModule,
+    MatIconModule,
     MatFormFieldModule,
     StoreModule.forRoot({ todos: todosReducer }),
     StoreDevtoolsModule.instrument({

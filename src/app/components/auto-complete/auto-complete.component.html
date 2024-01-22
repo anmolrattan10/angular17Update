@@ -17,6 +17,16 @@
             [formControl]="myControl"
             [matAutocomplete]="auto"
           />
+          @if (myControl.value) {
+          <button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="myControl.reset()"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+          }
           <mat-autocomplete #auto="matAutocomplete">
             @for(option of filteredOptions | async; track option) {
             <mat-option [value]="option.city">
@@ -44,14 +54,32 @@
   <div class="row text-center mt-5">
     <div class="col-md-12 d-flex justify-content-center">
       <mat-card class="example-card">
+        <span class="d-flex flex-row-reverse">
+          <mat-icon (click)="name = null; temp = null" style="overflow: visible"
+            >close</mat-icon
+          >
+        </span>
         <mat-card-header class="justify-content-center">
           <mat-card-title class="fs-1 mb-3">{{ name }}</mat-card-title>
         </mat-card-header>
-        <mat-card-content class="mt-3 text-info fs-2">
+        <mat-card-content
+          [ngClass]="[temp < 30 ? 'text-info' : 'text-danger']"
+          class="mt-3 text-info fs-2"
+        >
           {{ temp }}
+          @if(temp < 30) {
           <span><fa-icon [icon]="faTemperatureLow"></fa-icon>C</span>
+          } @else {
+          <span><fa-icon [icon]="faTemperatureHigh"></fa-icon>C</span>
+          }
         </mat-card-content>
       </mat-card>
+    </div>
+  </div>
+  } @else if(errorMessage) {
+  <div class="row text-center mt-5">
+    <div class="col-md-12 d-flex justify-content-center">
+      <h3 class="text-danger">{{ errorMessage }}!</h3>
     </div>
   </div>
   }
