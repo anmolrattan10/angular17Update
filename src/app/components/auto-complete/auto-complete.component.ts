@@ -1,8 +1,8 @@
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
 import { faCloudSunRain } from '@fortawesome/free-solid-svg-icons';
+import { faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
 import { faTemperatureHigh } from '@fortawesome/free-solid-svg-icons';
 
 import { LocationService } from '../../services/location.service';
@@ -32,26 +32,42 @@ export class AutoCompleteComponent implements OnInit, OnDestroy {
   // Clear Timeout ID
   timeoutID!: NodeJS.Timeout;
 
+  //Get Weather Form
+  getWeatherForm!: FormGroup;
+
   constructor(private locationService: LocationService) {}
 
   ngOnInit(): void {
+    this.createGetWeatherForm();
     this.getCities();
 
-    this.timeoutID = setTimeout(() => {
-      this.filterOptions();
-    }, 100);
+    this.filterOptions();
+    // this.timeoutID = setTimeout(() => {
+    // }, 1000);
   }
 
   private _filter(value: string): string[] {
     const filterValue = value;
+    let filteredData: string[] = [];
+    if (this.options) {
+      filteredData = this.options.filter((option: any) =>
+        option.city.toLowerCase().includes(filterValue)
+      );
+    }
 
-    return this.options.filter((option: any) =>
-      option.city.toLowerCase().includes(filterValue)
-    );
+    return filteredData;
+  }
+
+  createGetWeatherForm() {
+    this.getWeatherForm = new FormGroup({
+      cityNameInput: new FormControl(null),
+    });
   }
 
   filterOptions(): void {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
+    this.filteredOptions = this.getWeatherForm.controls[
+      'cityNameInput'
+    ].valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value || ''))
     );
@@ -64,21 +80,24 @@ export class AutoCompleteComponent implements OnInit, OnDestroy {
   }
 
   getWeather(): void {
+    this.clearApiResponseData();
+    this.cityName = this.getWeatherForm.value.cityNameInput;
+    this.locationService.getWeatherByCityName(this.cityName).subscribe({
+      next: (v) => {
+        (this.name = v.name), (this.temp = v.main.temp);
+      },
+      error: (e) => {
+        this.errorMessage = e.error.message;
+      },
+    });
+
+    this.getWeatherForm.reset();
+  }
+
+  clearApiResponseData() {
     this.errorMessage = null;
     this.name = null;
     this.temp = null;
-    this.cityName = this.myControl.value;
-    this.locationService.getWeatherByCityName(this.cityName).subscribe(
-      (data) => {
-        this.name = data.name;
-        this.temp = data.main.temp;
-      },
-      (error: any) => {
-        this.errorMessage = error.error.message;
-      }
-    );
-
-    this.myControl.reset();
   }
 
   ngOnDestroy(): void {

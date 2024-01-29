@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import {
@@ -14,6 +15,7 @@ import {
 } from './store/todo.action';
 import { TODOS } from './models/todo.model';
 import { getTodoById, getTodos } from './store/todo.selector';
+import { UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-to-do',
@@ -25,6 +27,7 @@ export class ToDoComponent implements OnInit, OnDestroy {
   faTrashCan = faTrashCan;
   faPen = faPen;
   faCheck = faCheck;
+  faPlus = faPlus;
 
   //Todos
   todoList!: Observable<TODOS[]>;
@@ -88,14 +91,32 @@ export class ToDoComponent implements OnInit, OnDestroy {
    * @returns void
    */
   editTodo(item: string, index: number): void {
+    let transformed = this.titleCase(item);
     this.isEditting = true;
     this.toDoIndex = index;
-    this.todoForm.controls['addTodo'].setValue(item);
+    this.todoForm.controls['addTodo'].setValue(transformed);
     this.editedTodoSubscription = this.store
       .select(getTodoById(this.toDoIndex + 1))
       .subscribe((data) => {
         this.edittingTodo = data;
       });
+  }
+
+  /**
+   * @function to convert selected todo to Title Case
+   * @param str
+   * @returns void
+   */
+  titleCase(str: string) {
+    let splitStr = str.toLowerCase().split(' ');
+    for (let i = 0; i < splitStr.length; i++) {
+      // You do not need to check if i is larger than splitStr length, as your for does that for you
+      // Assign it back to the array
+      splitStr[i] =
+        splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    // Directly return the joined string
+    return splitStr.join(' ');
   }
 
   /**

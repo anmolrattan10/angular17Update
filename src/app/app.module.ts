@@ -2,17 +2,17 @@ import { StoreModule } from '@ngrx/store';
 import { TitleCasePipe } from '@angular/common';
 import { NgModule, isDevMode } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
-import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatButtonModule } from '@angular/material/button';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatIconModule } from '@angular/material/icon';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -20,6 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NavComponent } from './components/nav/nav.component';
 import { ToDoComponent } from './components/to-do/to-do.component';
 import { todosReducer } from './components/to-do/store/todo.reducer';
+import { HttpInterceptorService } from './services/httpInterceptor.service';
 import { AutoCompleteComponent } from './components/auto-complete/auto-complete.component';
 
 @NgModule({
@@ -50,7 +51,14 @@ import { AutoCompleteComponent } from './components/auto-complete/auto-complete.
       logOnly: !isDevMode(),
     }),
   ],
-  providers: [TitleCasePipe],
+  providers: [
+    TitleCasePipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

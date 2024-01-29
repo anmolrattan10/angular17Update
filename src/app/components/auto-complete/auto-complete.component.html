@@ -6,7 +6,7 @@
   </div>
   <div class="row text-center mt-5">
     <div class="col-md-12 d-flex justify-content-center">
-      <form class="example-form m-2">
+      <form [formGroup]="getWeatherForm" class="example-form m-2">
         <mat-form-field class="example-full-width">
           <mat-label>City</mat-label>
           <input
@@ -14,15 +14,15 @@
             placeholder="Pick one"
             aria-label="City"
             matInput
-            [formControl]="myControl"
+            formControlName="cityNameInput"
             [matAutocomplete]="auto"
           />
-          @if (myControl.value) {
+          @if (getWeatherForm.value.cityNameInput) {
           <button
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="myControl.reset()"
+            (click)="getWeatherForm.reset()"
           >
             <mat-icon>close</mat-icon>
           </button>
@@ -37,7 +37,7 @@
         </mat-form-field>
 
         <button
-          [disabled]="!myControl.value"
+          [disabled]="!getWeatherForm.value.cityNameInput"
           type="button"
           class="btn btn-primary m-3 p-2"
           (click)="getWeather()"
@@ -55,7 +55,7 @@
     <div class="col-md-12 d-flex justify-content-center">
       <mat-card class="example-card">
         <span class="d-flex flex-row-reverse">
-          <mat-icon (click)="name = null; temp = null" style="overflow: visible"
+          <mat-icon (click)="clearApiResponseData()" style="overflow: visible"
             >close</mat-icon
           >
         </span>

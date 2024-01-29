@@ -1,10 +1,5 @@
 body {
-  background-image: linear-gradient(
-    to bottom right,
-    rgb(66, 65, 65),
-    rgb(214, 214, 214)
-  );
-  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .li-item-index {
