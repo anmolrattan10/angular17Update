@@ -20,7 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NavComponent } from './components/nav/nav.component';
 import { ToDoComponent } from './components/to-do/to-do.component';
 import { todosReducer } from './components/to-do/store/todo.reducer';
-import { HttpInterceptorService } from './services/httpInterceptor.service';
+import { HttpInterceptorService } from './services/http-Interceptor.service';
 import { AutoCompleteComponent } from './components/auto-complete/auto-complete.component';
 
 @NgModule({

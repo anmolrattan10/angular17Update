@@ -1,11 +1,12 @@
-import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { faCloudSunRain } from '@fortawesome/free-solid-svg-icons';
 import { faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
 import { faTemperatureHigh } from '@fortawesome/free-solid-svg-icons';
 
 import { LocationService } from '../../services/location.service';
+import { HttpInterceptorService } from 'src/app/services/http-Interceptor.service';
 
 @Component({
   selector: 'app-auto-complete',
@@ -27,23 +28,19 @@ export class AutoCompleteComponent implements OnInit, OnDestroy {
   // API Response Data
   name!: string | null;
   temp!: number | null;
-  errorMessage: string | null = null;
-
-  // Clear Timeout ID
-  timeoutID!: NodeJS.Timeout;
 
   //Get Weather Form
   getWeatherForm!: FormGroup;
 
-  constructor(private locationService: LocationService) {}
+  constructor(
+    private locationService: LocationService,
+    private interceptor: HttpInterceptorService
+  ) {}
 
   ngOnInit(): void {
     this.createGetWeatherForm();
     this.getCities();
-
     this.filterOptions();
-    // this.timeoutID = setTimeout(() => {
-    // }, 1000);
   }
 
   private _filter(value: string): string[] {
@@ -86,21 +83,14 @@ export class AutoCompleteComponent implements OnInit, OnDestroy {
       next: (v) => {
         (this.name = v.name), (this.temp = v.main.temp);
       },
-      error: (e) => {
-        this.errorMessage = e.error.message;
-      },
     });
-
     this.getWeatherForm.reset();
   }
 
   clearApiResponseData() {
-    this.errorMessage = null;
     this.name = null;
     this.temp = null;
   }
 
-  ngOnDestroy(): void {
-    clearTimeout(this.timeoutID);
-  }
+  ngOnDestroy(): void {}
 }

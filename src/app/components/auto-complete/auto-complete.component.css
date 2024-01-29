@@ -13,7 +13,12 @@ body {
 }
 
 .example-card {
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(0, 26, 72),
+    rgb(214, 214, 214)
+  );
   max-width: 400px;
   width: 20rem;
-  height: 10rem;
+  height: 12rem;
 }

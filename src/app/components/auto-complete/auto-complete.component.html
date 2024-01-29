@@ -42,8 +42,11 @@
           class="btn btn-primary m-3 p-2"
           (click)="getWeather()"
         >
-          Get Weather
+          @if(!getWeatherForm.value.cityNameInput) {
+          <span class="fw-bold">Enter City</span>
+          } @else { Get Weather
           <fa-icon class="text-light" [icon]="faCloudSunRain"></fa-icon>
+          }
         </button>
       </form>
     </div>
@@ -74,12 +77,6 @@
           }
         </mat-card-content>
       </mat-card>
-    </div>
-  </div>
-  } @else if(errorMessage) {
-  <div class="row text-center mt-5">
-    <div class="col-md-12 d-flex justify-content-center">
-      <h3 class="text-danger">{{ errorMessage }}!</h3>
     </div>
   </div>
   }
